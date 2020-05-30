@@ -1,0 +1,30 @@
+ 
+open_with 1
+open_with 15
+Q!
+
+open_with bash
+search config
+search 
+open_with 
+cd
+map
+help
+rename stm32f1_cmake_template
+mkdir project_templates
+delete
+unset_bookmark 
+unsel
+unset
+open_with 2
+rename CMakeLists.txtODOA
+rename CMakeLists.txtOA
+rename CMakeLists.txt
+rename CMakeLists.txtOB
+rename CMakeLists.txt:q
+S
+C
+rename programmingOAOBOBOA
+rename programmingOAOAOB
+search .config
+search nvim
