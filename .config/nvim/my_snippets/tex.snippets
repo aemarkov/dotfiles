@@ -1,0 +1,33 @@
+snippet beg "begin{} / end{}" bA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet dm "Math" wA
+\[
+$1
+\] $0
+endsnippet
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet img "Figure" bA
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{$1}
+	\caption{$2}
+	\label{$3}
+\end{figure} $0
+endsnippet
