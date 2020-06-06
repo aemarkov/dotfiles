@@ -15,6 +15,9 @@ Main components:
   - i3status
   - termite
 
+## Docs
+ - [vim](dotfiles/doc/vim-cheatshit.md): my noobies Vim cheatshit and keybindings
+
 ## How to use
 Repo should be placed somewhere, but working tree should be `$HOME`
 

@@ -1,0 +1,2 @@
+# Ignore vim installed pluggins
+.config/nvim/plugged/
