@@ -9,22 +9,33 @@
 " - fuzzy search
 " - fix fucking auto-pairs
 
+" Coc Extensions:
+let g:coc_global_extensions = [
+ \'coc-clangd',
+ \'coc-python',
+ \'coc-rust-analyzer',
+ \'coc-vimtex',
+ \'coc-json'
+ \]
+
 call plug#begin()
+" appearence and UI
 Plug 'arcticicestudio/nord-vim'                  " Nordic theme
-Plug 'ryanoasis/vim-devicons'
-Plug 'preservim/nerdtree'                        " NERDTree - file explorer
-Plug 'preservim/nerdcommenter'                   " Multiline comments
-"Plug 'jiangmiao/auto-pairs'                      " Auto close pair backets etc
-Plug 'lervag/vimtex'                             " TeX support
-Plug 'sirver/ultisnips'                          " Snippets (used only for TeX now)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}  " CoC - autocompleation
-Plug 'rust-lang/rust.vim'                        " Rust support
-Plug 'vim-syntastic/syntastic'                   " ???
-Plug 'majutsushi/tagbar'                         " ???
 Plug 'vim-airline/vim-airline'                   " Nice tatus line 
-Plug 'airblade/vim-rooter'                       " Make pathes relative to the VCS root
+Plug 'ryanoasis/vim-devicons'
+Plug 'majutsushi/tagbar'                         " Show tags in window
+" Navigation
+Plug 'preservim/nerdtree'                        " NERDTree - file explorer
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'                       " Make pathes relative to the VCS root
+" Editing
+Plug 'preservim/nerdcommenter'                   " Multiline comments
+Plug 'sirver/ultisnips'                          " Snippets (used only for TeX now)
+"Plug 'jiangmiao/auto-pairs'                      " Auto close pair backets etc
+" Language support
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }} 
+Plug 'lervag/vimtex'                             " TeX support
 call plug#end()
 
 " *** General settings ***************************
@@ -138,6 +149,7 @@ map <leader>cv <plug>NERDCommenterAppend
 " TODO: comment only selected part of line (if possible)
 
 "*** COC ****************************************
+
 " TAB completion
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -234,11 +246,11 @@ nmap <leader>l :VimtexTocToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
 "*** syntastic **********************************
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" 
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0

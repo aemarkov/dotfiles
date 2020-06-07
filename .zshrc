@@ -47,4 +47,9 @@ export PATH=$PATH:$JAVA_HOME/bin
 # Other PATH configuration
 export PATH=$PATH:/usr/local/texlive/2020/bin/x86_64-linux/
 
+# For dotfiles repository
 alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
+
+export WORKON_HOME=$HOME/.venv/
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+source $HOME/.local/bin/virtualenvwrapper.sh
