@@ -53,3 +53,7 @@ alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
 export WORKON_HOME=$HOME/.venv/
 export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 source $HOME/.local/bin/virtualenvwrapper.sh
+
+# ESP8266
+export IDF_PATH=$HOME/programming/esp8266/ESP8266_RTOS_SDK
+export PATH=$PATH:$HOME/programs/xtensa-lx106-elf/bin
