@@ -34,7 +34,7 @@ Plug 'preservim/nerdcommenter'                   " Multiline comments
 Plug 'sirver/ultisnips'                          " Snippets (used only for TeX now)
 "Plug 'jiangmiao/auto-pairs'                      " Auto close pair backets etc
 " Language support
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }} 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'                             " TeX support
 call plug#end()
 
