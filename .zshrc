@@ -21,39 +21,12 @@ prompt_dir() {
 unsetopt share_history
 
 ###################################
+#!/bin/bash
+
 
 # Default editor
 export EDITOR=vim
 
-# Tilix fix
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
-fi
+source $HOME/.config/environment
 
-# Disable .NET telemetry
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-# ROS setup
-# We have already source it in ~/.xsessionrc, but we need
-# to source *.zsh to enable smart completion
-export ROS_OS_OVERRIDE=ubuntu:18.04:bionic
-source /opt/ros/melodic/setup.zsh
-source /home/garrus/ros/devel/setup.zsh
-
-# Java settings
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
-export PATH=$PATH:$JAVA_HOME/bin
-
-# Other PATH configuration
-export PATH=$PATH:/usr/local/texlive/2020/bin/x86_64-linux/
-
-# For dotfiles repository
-alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
-
-export WORKON_HOME=$HOME/.venv/
-export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-source $HOME/.local/bin/virtualenvwrapper.sh
-
-# ESP8266
-export IDF_PATH=$HOME/programming/esp8266/ESP8266_RTOS_SDK
-export PATH=$PATH:$HOME/programs/xtensa-lx106-elf/bin
