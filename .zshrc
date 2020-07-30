@@ -19,10 +19,6 @@ unsetopt share_history
 
 ### ENVIRONMENT SETTINGS ######################################################
 
-# Default editor
 export EDITOR=vim
-
-# All environment-specific settings
-source $CONFIG/environment
-
 export TERM=xterm
+alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
