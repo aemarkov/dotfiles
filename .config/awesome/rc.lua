@@ -23,6 +23,7 @@ local freedesktop = require("freedesktop")
 -- Enable VIM help for hotkeys widget when client with matching name is opened:
 require("awful.hotkeys_popup.keys.vim")
 
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -58,29 +59,18 @@ beautiful.titlebar_close_button_focus = "/usr/share/awesome/themes/cesious/title
 beautiful.font              = "Noto Sans Regular 10"
 beautiful.notification_font = "Noto Sans Bold 14"
 
+panel_height = 20
+
 -- This is used later as the default terminal and editor to run.
 browser = "exo-open --launch WebBrowser" or "firefox"
 filemanager = "exo-open --launch FileManager" or "thunar"
 gui_editor = "mousepad"
--- terminal = os.getenv("TERMINAL") or "alacritty"
 terminal = "alacritty"
 
-
--- Keyboard layouts
--- kbdcfg = layout_indicator({
-    -- layouts = {
-        -- {name="us", layout="us", variant=nil},
-		-- {name="ru", layout="ru", variant=nil},
-    -- },
--- })
-
 -- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
+
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.floating,
@@ -154,8 +144,14 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%H:%M ")
+
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
+
+-- Tray
+local mytray = wibox.widget.systray()
+mytray.forced_height = 5
+mytray.opacity = 0.1
 
 darkblue    = beautiful.bg_focus
 blue        = "#9EBABA"
@@ -246,6 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "bottom", screen = s })
+    s.mywibox.height = panel_height
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -260,10 +257,10 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
             mykeyboardlayout,
-            separator,
             mytextclock,
+            separator,
+            wibox.layout.margin(mytray, 3, 3 ,3, 3),
             s.mylayoutbox,
         },
     }
@@ -283,37 +280,22 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
+
+    -- Navigation
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
-
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
-
-    -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
-              {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
-              {description = "swap with previous client by index", group = "client"}),
+    awful.key({ modkey,           }, "j", function () awful.client.focus.byidx( 1) end,
+              {description = "focus next by index", group = "client"}),
+    awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
+              {description = "focus previous by index", group = "client"}),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+              {description = "go back", group = "tag"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
@@ -325,16 +307,13 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
 
-    -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey,           }, "z", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
-              {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-              {description = "quit awesome", group = "awesome"}),
-
+    -- Layout manipulation
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                       end,
+              {description = "select previous", group = "layout"}),
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+              {description = "swap with next client by index", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+              {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)                 end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)                 end,
@@ -347,14 +326,27 @@ globalkeys = gears.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)           end,
               {description = "decrease the number of columns", group = "layout"}),
+
+  
+    -- Launch programs
+     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+              {description = "show main menu", group = "awesome"}),
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey,           }, "z", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Control" }, "r", awesome.restart,
+              {description = "reload awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+              {description = "quit awesome", group = "awesome"}),
+    awful.key({ modkey }, "d",     function () awful.spawn("rofi -show combi") end,
+              {description = "launch Rofi", group = "launcher"}),
     awful.key({ modkey     }, "b", function () awful.spawn(browser)          end,
               {description = "launch Browser", group = "launcher"}),
-    awful.key({ modkey, "Control"}, "Escape", function () awful.spawn("/usr/bin/rofi -show drun -modi drun") end,
-              {description = "launch rofi", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(filemanager)            end,
               {description = "launch filemanager", group = "launcher"}),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                       end,
-              {description = "select previous", group = "layout"}),
+    
+    -- Screenshots
     awful.key({                   }, "Print", function () awful.spawn.with_shell("sleep 0.1 && /usr/bin/i3-scrot -d")   end,
               {description = "capture a screenshot", group = "screenshot"}),
     awful.key({"Control"          }, "Print", function () awful.spawn.with_shell("sleep 0.1 && /usr/bin/i3-scrot -w")   end,
@@ -373,10 +365,6 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Prompt
-    awful.key({ modkey },            "d",     function () awful.spawn("/usr/bin/rofi -show combi") end,
-              {description = "run prompt", group = "launcher"}),
-
     awful.key({ modkey }, "ö",
               function ()
                   awful.prompt.run {
@@ -387,9 +375,21 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+    awful.key({}, 'XF86AudioRaiseVolume',
+        function()
+            awful.spawn.with_shell('pactl set-sink-mute 0 off && pactl set-sink-volume 0 +5%')
+        end,
+        {description = 'volume up', group = 'hotkeys'}),
+    awful.key({}, 'XF86AudioLowerVolume',
+        function()
+            awful.spawn.with_shell('pactl set-sink-mute 0 off && pactl set-sink-volume 0 -5%')
+        end,
+        {description = 'volume down', group = 'hotkeys'}),
+    awful.key({}, 'XF86AudioMute',
+        function()
+            awful.spawn.with_shell('pactl set-sink-mute 0 toggle')
+        end,
+        {description = 'toggle mute', group = 'hotkeys'})
 )
 
 clientkeys = gears.table.join(

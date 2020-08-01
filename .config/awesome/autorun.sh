@@ -36,11 +36,14 @@ if (command -v system-config-printer-applet && ! pgrep applet.py ); then
   system-config-printer-applet &
 fi
 
-run compton --shadow-exclude '!focused'
+run compton --config $HOME/.config/compton.conf
 run blueman-applet
 run msm_notifier
 
 # Keyboard layout
 setxkbmap -layout us,ru
 setxkbmap -option 'grp:caps_toggle'
+
+# Wallpaper
+feh --bg-center $HOME/Pictures/wallpapers/wallpaper_5.jpg
 
