@@ -80,7 +80,7 @@ theme.titlebar_maximized_button_focus_inactive  = themes_path .. "cesious/titleb
 theme.titlebar_maximized_button_normal_active   = themes_path .. "cesious/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = themes_path .. "cesious/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "/home/garrus/Pictures/wallpapers/wallpaper_5.pg"
+theme.wallpaper = "/home/garrus/pictures/wallpapers/wallpaper_5.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh      = themes_path .. "cesious/layouts/fairh.png"

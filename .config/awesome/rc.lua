@@ -50,20 +50,20 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- Chosen colors and buttons look alike adapta maia theme
-beautiful.init("/home/garrus/.config/awesome/theme.lua")
-beautiful.icon_theme        = "Papirus-Dark"
-beautiful.bg_normal         = "#222D32"
-beautiful.bg_focus          = "#2C3940"
-beautiful.titlebar_close_button_normal = "/usr/share/awesome/themes/cesious/titlebar/close_normal_adapta.png"
-beautiful.titlebar_close_button_focus = "/usr/share/awesome/themes/cesious/titlebar/close_focus_adapta.png"
-beautiful.font              = "Noto Sans Regular 10"
-beautiful.notification_font = "Noto Sans Bold 14"
-
+beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
+-- beautiful.icon_theme        = "Papirus-Dark"
+-- beautiful.bg_normal         = "#222D32"
+-- beautiful.bg_focus          = "#2C3940"
+-- beautiful.titlebar_close_button_normal = "/usr/share/awesome/themes/cesious/titlebar/close_normal_adapta.png"
+-- beautiful.titlebar_close_button_focus = "/usr/share/awesome/themes/cesious/titlebar/close_focus_adapta.png"
+-- beautiful.font              = "Noto Sans Regular 10"
+-- beautiful.notification_font = "Noto Sans Bold 14"
+-- 
 panel_height = 20
 
 -- This is used later as the default terminal and editor to run.
 browser = "exo-open --launch WebBrowser" or "firefox"
-filemanager = "exo-open --launch FileManager" or "thunar"
+filemanager = "exo-open --launch FileManager" or "dolphin"
 gui_editor = "mousepad"
 terminal = "alacritty"
 
@@ -73,22 +73,24 @@ modkey = "Mod4"
 
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
-    --awful.layout.suit.tile.left,
+    awful.layout.suit.tile.top,
     awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
+    awful.layout.suit.floating
+    --awful.layout.suit.tile.left,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
+    -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
+    -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
+default_horizontal_layout = awful.layout.layouts[1]
+default_vertical_layout = awful.layout.layouts[2]
 -- }}}
 
 -- {{{ Helper functions
@@ -202,27 +204,43 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
+-- local function set_wallpaper(s)
+    -- -- Wallpaper
+    -- if beautiful.wallpaper then
+        -- local wallpaper = beautiful.wallpaper
+        -- -- If wallpaper is a function, call it with the screen
+        -- if type(wallpaper) == "function" then
+            -- wallpaper = wallpaper(s)
+        -- end
+        -- gears.wallpaper.maximized(wallpaper, s, true)
+    -- end
+-- end
+
+-- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+-- screen.connect_signal("property::geometry", set_wallpaper)
+
+function is_vertical_screen(s)
+    if s.geometry.height > s.geometry.width then
+        return true
+    else
+        return false
     end
 end
 
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+function get_layoyt_for_screen(s)
+    if is_vertical_screen(s) then
+        return default_vertical_layout
+    else
+        return default_horizontal_layout
+    end
+end
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    -- set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6" }, s, get_layoyt_for_screen(s))
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -268,12 +286,12 @@ end)
 -- }}}
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-	awful.button({ }, 1, function () mymainmenu:hide() end),
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+-- root.buttons(gears.table.join(
+--   awful.button({ }, 1, function () mymainmenu:hide() end),
+--     awful.button({ }, 3, function () mymainmenu:toggle() end),
+--     awful.button({ }, 4, awful.tag.viewnext),
+--     awful.button({ }, 5, awful.tag.viewprev)
+--   ))
 -- }}}
 
 -- {{{ Key bindings
@@ -290,7 +308,7 @@ globalkeys = gears.table.join(
               {description = "focus next by index", group = "client"}),
     awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
               {description = "focus previous by index", group = "client"}),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey }, "p", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),

@@ -44,6 +44,8 @@ run msm_notifier
 setxkbmap -layout us,ru
 setxkbmap -option 'grp:caps_toggle'
 
-# Wallpaper
-feh --bg-center $HOME/Pictures/wallpapers/wallpaper_5.jpg
+# Screen resolution
+$HOME/.screenlayout/default.sh
 
+# Wallpaper
+feh --bg-fill $HOME/pictures/wallpapers/wallpaper_5.jpg

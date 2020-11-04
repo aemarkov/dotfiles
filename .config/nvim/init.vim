@@ -67,6 +67,7 @@ nnoremap <silent> <M-right> :bn<CR>
 nnoremap <silent> <leader><leader> <c-^>
 
 " Open with FZF
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " Open buffer
 nnoremap ; :Buffers<CR>
 " Open file

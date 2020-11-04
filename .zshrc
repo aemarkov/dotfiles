@@ -22,3 +22,15 @@ unsetopt share_history
 export EDITOR=vim
 export TERM=xterm
 alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
+
+# ROS
+source /opt/ros/noetic/setup.zsh
+source $HOME/ros/devel/setup.zsh
+
+# edk2
+EDK_PATH=$HOME/programming/edk2/edk2
+export PATH=$PATH:$EDK_PATH
+export EDK_TOOLS_PATH=$EDK_PATH/BaseTools
+
+# Chromium depot_tools
+export PATH=$PATH:$HOME/programs/depot_tools
