@@ -23,6 +23,8 @@ local freedesktop = require("freedesktop")
 -- Enable VIM help for hotkeys widget when client with matching name is opened:
 require("awful.hotkeys_popup.keys.vim")
 
+local square = require('square')
+local bomj = require('bomj')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -51,15 +53,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 -- Chosen colors and buttons look alike adapta maia theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
--- beautiful.icon_theme        = "Papirus-Dark"
--- beautiful.bg_normal         = "#222D32"
--- beautiful.bg_focus          = "#2C3940"
--- beautiful.titlebar_close_button_normal = "/usr/share/awesome/themes/cesious/titlebar/close_normal_adapta.png"
--- beautiful.titlebar_close_button_focus = "/usr/share/awesome/themes/cesious/titlebar/close_focus_adapta.png"
--- beautiful.font              = "Noto Sans Regular 10"
--- beautiful.notification_font = "Noto Sans Bold 14"
--- 
-panel_height = 20
+
 
 -- This is used later as the default terminal and editor to run.
 browser = "exo-open --launch WebBrowser" or "firefox"
@@ -152,8 +146,6 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- Tray
 local mytray = wibox.widget.systray()
-mytray.forced_height = 5
-mytray.opacity = 0.1
 
 darkblue    = beautiful.bg_focus
 blue        = "#9EBABA"
@@ -235,6 +227,45 @@ function get_layoyt_for_screen(s)
     end
 end
 
+function create_taglist(s, taglist_buttons)
+    taglist = awful.widget.taglist {
+        screen = s,
+        filter = awful.widget.taglist.filter.all,
+        style = {
+            shape = gears.shape.circle
+        },
+        font = beautiful.taglist_font,
+        layout = {
+            layout = wibox.layout.fixed.horizontal,
+            spacing = 1,
+            spacing_widget = {
+                widget = wibox.widget.separator,
+                color = "#00000000",
+                shape = gears.shape.rectangle
+            }
+        },
+        widget_template = {
+            widget = square, 
+            {
+                id = 'background_role',
+                widget = wibox.container.background,
+                {
+                        id = 'text_role',
+                        widget = wibox.widget.textbox,
+                        align = "center",
+                        valign = "center"
+                },
+            }
+        },
+        buttons = taglist_buttons
+    }
+    io.stderr:write(string.format('---- %s\n', taglist)) 
+    -- w = wibox.container.margin {
+        -- widget = taglist
+    -- }
+    return taglist
+end
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     -- set_wallpaper(s)
@@ -253,14 +284,19 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    -- s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.mytaglist = create_taglist(s, taglist_buttons)
 	
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s })
-    s.mywibox.height = panel_height
+    s.mywibox = awful.wibar({
+        position = "bottom", 
+        screen = s,
+        height = beautiful.tb_heigh,
+        ontop = true,
+    })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -268,7 +304,11 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
-            s.mytaglist,
+            {
+                widget = wibox.container.margin,
+                margins=4,
+                s.mytaglist,
+            },
             s.mypromptbox,
             separator,
         },

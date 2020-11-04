@@ -14,7 +14,7 @@ theme.bg_normal   = "#141A1B"
 theme.bg_focus    = "#222B2E"
 theme.bg_urgent   = "#000000"
 theme.bg_minimize = "#101010"
-theme.bg_systray  = theme.bg_normal
+theme.bg_systray  = "#ff000000" -- alpha doesn't work
 
 theme.fg_normal   = "#ffffff"
 theme.fg_focus    = "#ffffff"
@@ -30,6 +30,15 @@ theme.useless_gap = 4
 
 theme.hotkeys_modifiers_fg = "#2EB398"
 
+-- Taskbar settings
+theme.wibar_bg    = theme.bg_normal
+theme.tb_height = 30
+theme.taglist_font = "noto Sans Regular 6"
+theme.taglist_bg_empty = "#00000000"
+theme.taglist_fg_empty = "#666"
+theme.taglist_bg_occupied = "#1c2121"
+theme.taglist_bg_focus = theme.bg_focus --"#00ff00"
+theme.taglist_bg_urgent = "#ff0000"
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
