@@ -363,12 +363,12 @@ globalkeys = gears.table.join(
               {description = "launch filemanager", group = "launcher"}),
     
     -- Screenshots
-    awful.key({          }, "Print", function () awful.spawn("shutter -f")   end,
-              {description = "capture a screenshot", group = "screenshot"}),
-    awful.key({"Mod1"     }, "Print", function () awful.spawn("shutter -a")   end,
-              {description = "capture a screenshot of active window", group = "screenshot"}),
-    awful.key({"Control" }, "Print", function () awful.spawn("shutter -s")   end,
-              {description = "capture a screenshot of selection", group = "screenshot"}),
+    awful.key({          }, "Print", function () awful.spawn("flameshot full -c")   end,
+              {description = "capture a screenshot and copy to clipboard", group = "screenshot"}),
+    awful.key({"Mod1"     }, "Print", function () awful.spawn("flameshot screen -c")   end,
+              {description = "capture a screenshot of active screen", group = "screenshot"}),
+    awful.key({"Control" }, "Print", function () awful.spawn("flameshot gui")   end,
+              {description = "capture a screenshot of selection and copy", group = "screenshot"}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
