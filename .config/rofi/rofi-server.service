@@ -1,0 +1,12 @@
+[Unit]
+Description=Server for rofi-firefox-tabs: switch Firefox tabs with Rofi
+After=dbus.service
+
+[Service]
+Type=simple
+PIDFile=/var/run/rofi-firefox-server.pid
+User=garrus
+Group=garrus
+ExecStart=/home/garrus/.local/bin/rofi-server
+Restart=always
+
