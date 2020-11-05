@@ -24,7 +24,6 @@ local freedesktop = require("freedesktop")
 require("awful.hotkeys_popup.keys.vim")
 
 local square = require('square')
-local bomj = require('bomj')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -227,6 +226,7 @@ function get_layoyt_for_screen(s)
     end
 end
 
+-- TODO: extract to separate file/widget
 function create_taglist(s, taglist_buttons)
     taglist = awful.widget.taglist {
         screen = s,
@@ -237,7 +237,7 @@ function create_taglist(s, taglist_buttons)
         font = beautiful.taglist_font,
         layout = {
             layout = wibox.layout.fixed.horizontal,
-            spacing = 1,
+            spacing = 2,
             spacing_widget = {
                 widget = wibox.widget.separator,
                 color = "#00000000",
@@ -259,11 +259,40 @@ function create_taglist(s, taglist_buttons)
         },
         buttons = taglist_buttons
     }
-    io.stderr:write(string.format('---- %s\n', taglist)) 
-    -- w = wibox.container.margin {
-        -- widget = taglist
-    -- }
     return taglist
+end
+
+function create_tasklist(s, tasklist_buttons)
+    tasklist = awful.widget.tasklist {
+        screen = s,
+        filter = awful.widget.tasklist.filter.currenttags,
+        buttons = tasklist_buttons,
+        layout = {
+            layout = wibox.layout.fixed.horizontal,
+            spacing = 2,
+            spacing_widget = {
+                widget = wibox.widget.separator,
+                color = "#ff000000",
+                shape = gears.shape.rectangle
+            },
+        },
+        widget_template = {
+            widget = square,
+            {
+                id = "background_role",
+                widget = wibox.container.background,
+                {
+                    widget = wibox.container.margin,
+                    margins = 4,
+                    {
+                        id = "icon_role",
+                        widget = wibox.widget.imagebox,
+                    }
+                }
+            }
+        }
+    }
+    return tasklist
 end
 
 awful.screen.connect_for_each_screen(function(s)
@@ -284,17 +313,16 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    -- s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
     s.mytaglist = create_taglist(s, taglist_buttons)
 	
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
+    s.mytasklist = create_tasklist(s, tasklist_buttons)
 
     -- Create the wibox
     s.mywibox = awful.wibar({
         position = "bottom", 
         screen = s,
-        height = beautiful.tb_heigh,
+        height = beautiful.tb_height,
         ontop = true,
     })
 
@@ -306,18 +334,16 @@ awful.screen.connect_for_each_screen(function(s)
             mylauncher,
             {
                 widget = wibox.container.margin,
-                margins=4,
+                margins = 5,
                 s.mytaglist,
             },
             s.mypromptbox,
-            separator,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             mytextclock,
-            separator,
             wibox.layout.margin(mytray, 3, 3 ,3, 3),
             s.mylayoutbox,
         },

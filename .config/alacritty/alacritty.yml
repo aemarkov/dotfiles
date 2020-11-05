@@ -163,8 +163,8 @@ font:
 colors:
   # Default colors
   primary:
-    background: '#282C33'
-    foreground: '#d8dee9'
+    background: '#2E3440' # nord0
+    foreground: '#D8DEE9' # nord4
 
     # Bright and dim foreground colors
     #
