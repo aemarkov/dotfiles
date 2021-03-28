@@ -39,6 +39,9 @@ Plug 'lervag/vimtex'                             " TeX support
 call plug#end()
 
 " *** General settings ***************************
+" FIXME: disable COC warning
+let g:coc_disable_startup_warning = 1
+
 " Allow changing buffer without closing and writing
 set hidden
 " disable backups

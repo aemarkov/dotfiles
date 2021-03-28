@@ -22,9 +22,10 @@ unsetopt share_history
 export EDITOR=vim
 export TERM=xterm
 alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
+export PATH=$PATH:$HOME/.local/bin:$PATH
 
 # ROS
-source /opt/ros/noetic/setup.zsh
+source /opt/ros/melodic/setup.zsh
 source $HOME/ros/devel/setup.zsh
 
 # edk2
@@ -34,3 +35,7 @@ export EDK_TOOLS_PATH=$EDK_PATH/BaseTools
 
 # Chromium depot_tools
 export PATH=$PATH:$HOME/programs/depot_tools
+
+alias jetson_ros='source $HOME/.local/bin/jetson_ros.sh'
+alias cpx="rsync -avh --info=progress2 --no-i-r --delete"
+source /home/garrus/.cargo/env
