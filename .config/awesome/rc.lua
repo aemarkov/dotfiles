@@ -14,9 +14,6 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
--- Freedesktop menu
-local freedesktop = require("freedesktop")
-
 -- Keyboard layout switcher and indicator
 -- local layout_indicator = require("keyboard-layout-indicator")
 
@@ -116,20 +113,17 @@ myexitmenu = {
     { "reboot", "systemctl reboot", menubar.utils.lookup_icon("system-reboot") },
     { "shutdown", "poweroff", menubar.utils.lookup_icon("system-shutdown") }
 }
-mymainmenu = freedesktop.menu.build({
-    icon_size = 32,
-    before = {
-        { "Terminal", terminal, menubar.utils.lookup_icon("utilities-terminal") },
-        { "Browser", browser, menubar.utils.lookup_icon("internet-web-browser") },
-        { "Files", filemanager, menubar.utils.lookup_icon("system-file-manager") },
-        -- other triads can be put here
-    },
-    after = {
-        { "Awesome", myawesomemenu, "/usr/share/awesome/icons/awesome32.png" },
-        { "Exit", myexitmenu, menubar.utils.lookup_icon("system-shutdown") },
-        -- other triads can be put here
-    }
+mymainmenu = awful.menu({
+   items = {
+       { "Terminal", terminal, menubar.utils.lookup_icon("utilities-terminal") },
+       { "Browser", browser, menubar.utils.lookup_icon("internet-web-browser") },
+       { "Files", filemanager, menubar.utils.lookup_icon("system-file-manager") },
+       { "Awesome", myawesomemenu, "/usr/share/awesome/icons/awesome32.png" },
+       { "Exit", myexitmenu, menubar.utils.lookup_icon("system-shutdown") },
+   }
 })
+
+
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 -- Menubar configuration
