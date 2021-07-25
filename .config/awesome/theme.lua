@@ -4,7 +4,11 @@
     Modified by Thanos Apostolou
 --]]
 
-local themes_path = require("gears.filesystem").get_themes_dir()
+local themes_dir = require("gears.filesystem").get_themes_dir()
+local theme_name = "default"
+local theme_path = themes_dir .. theme_name .. "/"
+
+
 theme = {}
 
 theme.font              = "Noto Sans Regular 10"
@@ -64,13 +68,13 @@ theme.tasklist_bg_urgent = nord.aurora[1]
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Display the taglist squares
-theme.taglist_squares_sel   = themes_path .. "cesious/taglist/squarefw.png"
-theme.taglist_squares_unsel = themes_path .. "cesious/taglist/squarew.png"
+theme.taglist_squares_sel   = theme_path .. "taglist/squarefw.png"
+theme.taglist_squares_unsel = theme_path .. "taglist/squarew.png"
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path .. "cesious/icons/submenu.png"
+theme.menu_submenu_icon = theme_path .. "icons/submenu.png"
 theme.menu_height = 25
 theme.menu_width  = 200
 
@@ -80,50 +84,50 @@ theme.menu_width  = 200
 --theme.bg_widget = "#cc0000"
 
 -- Define the image to load
-theme.titlebar_close_button_normal              = themes_path .. "cesious/titlebar/close_normal_arc.png"
-theme.titlebar_close_button_focus               = themes_path .. "cesious/titlebar/close_focus_arc.png"
+theme.titlebar_close_button_normal              = theme_path .. "titlebar/close_normal_arc.png"
+theme.titlebar_close_button_focus               = theme_path .. "titlebar/close_focus_arc.png"
 
-theme.titlebar_ontop_button_normal_inactive     = themes_path .. "cesious/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive      = themes_path .. "cesious/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active       = themes_path .. "cesious/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active        = themes_path .. "cesious/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_inactive     = theme_path .. "titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_inactive      = theme_path .. "titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_active       = theme_path .. "titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_active        = theme_path .. "titlebar/ontop_focus_active.png"
 
-theme.titlebar_sticky_button_normal_inactive    = themes_path .. "cesious/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive     = themes_path .. "cesious/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active      = themes_path .. "cesious/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active       = themes_path .. "cesious/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive    = theme_path .. "titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_inactive     = theme_path .. "titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_active      = theme_path .. "titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_active       = theme_path .. "titlebar/sticky_focus_active.png"
 
-theme.titlebar_floating_button_normal_inactive  = themes_path .. "cesious/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive   = themes_path .. "cesious/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active    = themes_path .. "cesious/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active     = themes_path .. "cesious/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_inactive  = theme_path .. "titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_inactive   = theme_path .. "titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_active    = theme_path .. "titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_active     = theme_path .. "titlebar/floating_focus_active.png"
 
-theme.titlebar_maximized_button_normal_inactive = themes_path .. "cesious/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = themes_path .. "cesious/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active   = themes_path .. "cesious/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active    = themes_path .. "cesious/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_inactive = theme_path .. "titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_inactive  = theme_path .. "titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_active   = theme_path .. "titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_active    = theme_path .. "titlebar/maximized_focus_active.png"
 
 theme.wallpaper = "/home/garrus/pictures/wallpapers/wallpaper_5.jpg"
 
 -- You can use your own layout icons like this:
-theme.layout_fairh      = themes_path .. "cesious/layouts/fairh.png"
-theme.layout_fairv      = themes_path .. "cesious/layouts/fairv.png"
-theme.layout_floating   = themes_path .. "cesious/layouts/floating.png"
-theme.layout_magnifier  = themes_path .. "cesious/layouts/magnifier.png"
-theme.layout_max        = themes_path .. "cesious/layouts/max.png"
-theme.layout_fullscreen = themes_path .. "cesious/layouts/fullscreen.png"
-theme.layout_tilebottom = themes_path .. "cesious/layouts/tilebottom.png"
-theme.layout_tileleft   = themes_path .. "cesious/layouts/tileleft.png"
-theme.layout_tile       = themes_path .. "cesious/layouts/tile.png"
-theme.layout_tiletop    = themes_path .. "cesious/layouts/tiletop.png"
-theme.layout_spiral     = themes_path .. "cesious/layouts/spiral.png"
-theme.layout_dwindle    = themes_path .. "cesious/layouts/dwindle.png"
-theme.layout_cornernw   = themes_path .. "cesious/layouts/cornernw.png"
-theme.layout_cornerne   = themes_path .. "cesious/layouts/cornerne.png"
-theme.layout_cornersw   = themes_path .. "cesious/layouts/cornersw.png"
-theme.layout_cornerse   = themes_path .. "cesious/layouts/cornerse.png"
+theme.layout_fairh      = theme_path .. "layouts/fairh.png"
+theme.layout_fairv      = theme_path .. "layouts/fairv.png"
+theme.layout_floating   = theme_path .. "layouts/floating.png"
+theme.layout_magnifier  = theme_path .. "layouts/magnifier.png"
+theme.layout_max        = theme_path .. "layouts/max.png"
+theme.layout_fullscreen = theme_path .. "layouts/fullscreen.png"
+theme.layout_tilebottom = theme_path .. "layouts/tilebottom.png"
+theme.layout_tileleft   = theme_path .. "layouts/tileleft.png"
+theme.layout_tile       = theme_path .. "layouts/tile.png"
+theme.layout_tiletop    = theme_path .. "layouts/tiletop.png"
+theme.layout_spiral     = theme_path .. "layouts/spiral.png"
+theme.layout_dwindle    = theme_path .. "layouts/dwindle.png"
+theme.layout_cornernw   = theme_path .. "layouts/cornernw.png"
+theme.layout_cornerne   = theme_path .. "layouts/cornerne.png"
+theme.layout_cornersw   = theme_path .. "layouts/cornersw.png"
+theme.layout_cornerse   = theme_path .. "layouts/cornerse.png"
 
-theme.awesome_icon = themes_path .. "cesious/icons/manjaro64.png"
+theme.awesome_icon = theme_path .. "icons/manjaro64.png"
 
 -- Define the icon theme for application icons. If not set then the icons 
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
