@@ -21,11 +21,12 @@ nord = {
     aurora = { "#BF616A", "#D07770", "#EBCB8B", "#A3BE8C", "#B48EAD"}
 }
 
-theme.bg_normal   = nord.dark[1] .. "aa"
+theme.bg_normal   = nord.dark[1]
 theme.bg_focus    = nord.dark[4]
 theme.bg_urgent   = "#000000"
 theme.bg_minimize = "#101010"
-theme.bg_systray  = "#ff000000" -- alpha doesn't work
+-- Opacity doesn't work there, so just mimic visual appearence
+theme.bg_systray  = "#2e3440"
 
 theme.fg_normal   = "#ffffff"
 theme.fg_focus    = "#ffffff"
