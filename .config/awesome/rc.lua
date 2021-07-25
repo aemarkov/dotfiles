@@ -703,19 +703,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
--- Focus urgent tags automatically
-tag.connect_signal("property::urgent", function(t)
-                       awful.screen.focus(t.screen)
-                       if not(t.selected) then
-                           t:view_only()
-                       end
-end)
-
--- Focus urgent clients automatically
-client.connect_signal("property::urgent", function(c)
-                          c.minimized = false
-                          c:jump_to()
-end)
 
 -- Disable borders on lone windows
 -- Handle border sizes of clients.
