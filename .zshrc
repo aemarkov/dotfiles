@@ -21,11 +21,19 @@ unsetopt share_history
 
 export EDITOR=vim
 export TERM=xterm
+
+# My useful utils
 alias config='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME'
+alias cpx="rsync -avh --info=progress2 --no-i-r --delete"
 
 # ROS
-source /opt/ros/noetic/setup.zsh
-source $HOME/ros/devel/setup.zsh
+ROS_VERSION=noetic
+ros_global_setup=/opt/ros/$ROS_VERSION/setup.zsh
+ros_local_setup=$HOME/ros/devel/setup.zsh
+if [ -f $ros_global_setup ] && [ -f $ros_local_setup ]; then 
+  source /opt/ros/$ROS_VERSION/setup.zsh
+  source $HOME/ros/devel/setup.zsh
+fi
 
 # edk2
 EDK_PATH=$HOME/programming/edk2/edk2
