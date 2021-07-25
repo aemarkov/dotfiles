@@ -368,7 +368,7 @@ globalkeys = gears.table.join(
               {description = "focus next by index", group = "client"}),
     awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
               {description = "focus previous by index", group = "client"}),
-    awful.key({ modkey }, "p", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey            }, "p", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
@@ -384,7 +384,6 @@ globalkeys = gears.table.join(
             end
         end,
         {description = "go back", group = "client"}),
-
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                       end,
               {description = "select previous", group = "layout"}),
@@ -392,45 +391,45 @@ globalkeys = gears.table.join(
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)                 end,
+    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incmwfact( 0.05)                 end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)                 end,
+    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incmwfact(-0.05)                 end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true)        end,
               {description = "increase the number of master clients", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true)        end,
               {description = "decrease the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)           end,
+    awful.key({ modkey, "Shift"   }, "u",     function () awful.tag.incncol( 1, nil, true)           end,
               {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)           end,
+    awful.key({ modkey, "Shift"   }, "i",     function () awful.tag.incncol(-1, nil, true)           end,
               {description = "decrease the number of columns", group = "layout"}),
 
-  
+
     -- Launch programs
-     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    awful.key({ modkey,           }, "z", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn.with_shell(terminal .. " --working-directory=$(xcwd)") end,
               {description = "open a terminal", group = "launcher"}),
-        awful.key({ modkey, "Control" }, "r", awesome.restart,
+    awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
-    awful.key({ modkey }, "d",     function () awful.spawn("rofi -show combi") end,
+    awful.key({ modkey            }, "d",     function () awful.spawn("rofi -show combi") end,
               {description = "launch Rofi", group = "launcher"}),
-    awful.key({ modkey     }, "b", function () awful.spawn(browser)          end,
+    awful.key({ modkey            }, "w", function () awful.spawn(browser)          end,
               {description = "launch Browser", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(filemanager)            end,
               {description = "launch filemanager", group = "launcher"}),
-    
+
     -- Screenshots
-    awful.key({          }, "Print", function () awful.spawn("flameshot full -c")   end,
+    awful.key({                   }, "Print", function () awful.spawn("flameshot full -c")   end,
               {description = "capture a screenshot and copy to clipboard", group = "screenshot"}),
-    awful.key({"Mod1"     }, "Print", function () awful.spawn("flameshot screen -c")   end,
+    awful.key({"Mod1"             }, "Print", function () awful.spawn("flameshot screen -c")   end,
               {description = "capture a screenshot of active screen", group = "screenshot"}),
-    awful.key({"Control" }, "Print", function () awful.spawn("flameshot gui")   end,
+    awful.key({"Control"          }, "Print", function () awful.spawn("flameshot gui")   end,
               {description = "capture a screenshot of selection and copy", group = "screenshot"}),
 
-    awful.key({ modkey, "Control" }, "n",
+    awful.key({ modkey,           }, "b",
               function ()
                   local c = awful.client.restore()
                   -- Focus restored client
@@ -479,7 +478,7 @@ clientkeys = gears.table.join(
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ modkey,           }, "l", function (c) c:swap(awful.client.getmaster())      end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
